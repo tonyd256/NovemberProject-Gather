@@ -1,0 +1,4 @@
+#import "Gather-Prefix.pch"
+
+#ifdef __OBJC__
+#endif
