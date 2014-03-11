@@ -14,6 +14,15 @@
 		5DAC54EA0FB64F9EA4835DAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A76D9802E1470B9E7B2D37 /* Images.xcassets */; };
 		7B70F0E89929472B99CD2239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8DBE78A5A46AEB973B7AC /* main.m */; };
 		8976FE5FDEF742D9A9EEAF46 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9048F6FC14E44069898D239 /* XCTest.framework */; };
+		EAA5389A18CE86A400DE5F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAA5389918CE86A400DE5F6D /* Main.storyboard */; };
+		EAA5389D18CE9CE300DE5F6D /* NPGRunAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */; };
+		EAA538A018CE9CF300DE5F6D /* NPGBikeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5389F18CE9CF300DE5F6D /* NPGBikeAnnotation.m */; };
+		EAA538A318CE9D0200DE5F6D /* NPGCarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA538A218CE9D0200DE5F6D /* NPGCarAnnotation.m */; };
+		EAAF75FB18CEA279007D0229 /* NPGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */; };
+		EAAF75FD18CEA2E4007D0229 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAF75FC18CEA2E4007D0229 /* MapKit.framework */; };
+		EAAF75FF18CEA2EC007D0229 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAF75FE18CEA2EC007D0229 /* CoreLocation.framework */; };
+		EAAF760218CEA4CB007D0229 /* NPGAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */; };
+		EAAF760518CEA4FB007D0229 /* NPGAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF760418CEA4FB007D0229 /* NPGAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +50,21 @@
 		C9048F6FC14E44069898D239 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D5B97E3D679243D6B09B7FDF /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A76D9802E1470B9E7B2D37 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EAA5389918CE86A400DE5F6D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		EAA5389B18CE9CE300DE5F6D /* NPGRunAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGRunAnnotation.h; sourceTree = "<group>"; };
+		EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGRunAnnotation.m; sourceTree = "<group>"; };
+		EAA5389E18CE9CF300DE5F6D /* NPGBikeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGBikeAnnotation.h; sourceTree = "<group>"; };
+		EAA5389F18CE9CF300DE5F6D /* NPGBikeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGBikeAnnotation.m; sourceTree = "<group>"; };
+		EAA538A118CE9D0200DE5F6D /* NPGCarAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGCarAnnotation.h; sourceTree = "<group>"; };
+		EAA538A218CE9D0200DE5F6D /* NPGCarAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGCarAnnotation.m; sourceTree = "<group>"; };
+		EAAF75F918CEA279007D0229 /* NPGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGMapViewController.h; sourceTree = "<group>"; };
+		EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGMapViewController.m; sourceTree = "<group>"; };
+		EAAF75FC18CEA2E4007D0229 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		EAAF75FE18CEA2EC007D0229 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		EAAF760018CEA4CB007D0229 /* NPGAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAnnotationView.h; sourceTree = "<group>"; };
+		EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGAnnotationView.m; sourceTree = "<group>"; };
+		EAAF760318CEA4FB007D0229 /* NPGAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAnnotation.h; sourceTree = "<group>"; };
+		EAAF760418CEA4FB007D0229 /* NPGAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +80,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAAF75FF18CEA2EC007D0229 /* CoreLocation.framework in Frameworks */,
+				EAAF75FD18CEA2E4007D0229 /* MapKit.framework in Frameworks */,
 				08452CACADC04F2CAB56F538 /* Foundation.framework in Frameworks */,
 				008A910BAF074CE8834C4BEE /* UIKit.framework in Frameworks */,
 				26EB0639BDB94E0F98786F94 /* CoreGraphics.framework in Frameworks */,
@@ -108,6 +134,7 @@
 		2AAC202A7F9B487FB515C233 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				EAA5389918CE86A400DE5F6D /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -115,6 +142,14 @@
 		2C5882AFA2EA451094F789F8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EAA5389B18CE9CE300DE5F6D /* NPGRunAnnotation.h */,
+				EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */,
+				EAA5389E18CE9CF300DE5F6D /* NPGBikeAnnotation.h */,
+				EAA5389F18CE9CF300DE5F6D /* NPGBikeAnnotation.m */,
+				EAA538A118CE9D0200DE5F6D /* NPGCarAnnotation.h */,
+				EAA538A218CE9D0200DE5F6D /* NPGCarAnnotation.m */,
+				EAAF760318CEA4FB007D0229 /* NPGAnnotation.h */,
+				EAAF760418CEA4FB007D0229 /* NPGAnnotation.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -180,6 +215,8 @@
 		C537F5676A5F4991AF0A9F19 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EAAF760018CEA4CB007D0229 /* NPGAnnotationView.h */,
+				EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,6 +265,8 @@
 		F4CA86842E374791997DB8A9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EAAF75F918CEA279007D0229 /* NPGMapViewController.h */,
+				EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -242,6 +281,8 @@
 		FEC80551363C45A9AC52E1CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAAF75FE18CEA2EC007D0229 /* CoreLocation.framework */,
+				EAAF75FC18CEA2E4007D0229 /* MapKit.framework */,
 				D56E945A9CDD45FEBCD42E78 /* iOS */,
 				C9048F6FC14E44069898D239 /* XCTest.framework */,
 			);
@@ -328,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DAC54EA0FB64F9EA4835DAF /* Images.xcassets in Resources */,
+				EAA5389A18CE86A400DE5F6D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +398,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C4209883814459483D1D166 /* NPGAppDelegate.m in Sources */,
+				EAAF75FB18CEA279007D0229 /* NPGMapViewController.m in Sources */,
+				EAAF760518CEA4FB007D0229 /* NPGAnnotation.m in Sources */,
+				EAA538A018CE9CF300DE5F6D /* NPGBikeAnnotation.m in Sources */,
+				EAAF760218CEA4CB007D0229 /* NPGAnnotationView.m in Sources */,
+				EAA538A318CE9D0200DE5F6D /* NPGCarAnnotation.m in Sources */,
 				7B70F0E89929472B99CD2239 /* main.m in Sources */,
+				EAA5389D18CE9CE300DE5F6D /* NPGRunAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
