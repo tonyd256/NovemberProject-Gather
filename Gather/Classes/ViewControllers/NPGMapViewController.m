@@ -8,9 +8,6 @@
 
 #import "NPGMapViewController.h"
 #import "NPGAnnotation.h"
-#import "NPGRunAnnotation.h"
-#import "NPGBikeAnnotation.h"
-#import "NPGCarAnnotation.h"
 #import "NPGAnnotationView.h"
 #import "NPGAppSession.h"
 #import "NPGGroup.h"
@@ -18,6 +15,7 @@
 #import "NPGEditGroupViewController.h"
 #import "NPGGroupFactory.h"
 #import "NPGDateFormatterFactory.h"
+#import "NPGAnnotationFactory.h"
 
 @interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate>
 
@@ -45,23 +43,9 @@
 
 - (void)loadAnnotations
 {
+    [self.mapView removeAnnotations:self.mapView.annotations];
     [self.groups enumerateObjectsUsingBlock:^(NPGGroup *group, NSUInteger idx, BOOL *stop) {
-        NPGAnnotation *annotation;
-
-        if ([group.type isEqualToString:@"run"]) {
-            annotation = [[NPGRunAnnotation alloc] initWithCoordinate:group.location];
-            annotation.title = [NSString stringWithFormat:@"%d people running", group.people.count];
-        } else if ([group.type isEqualToString:@"bike"]) {
-            annotation = [[NPGBikeAnnotation alloc] initWithCoordinate:group.location];
-            annotation.title = [NSString stringWithFormat:@"%d people biking", group.people.count];
-        } else if ([group.type isEqualToString:@"car"]) {
-            annotation = [[NPGCarAnnotation alloc] initWithCoordinate:group.location];
-            annotation.title = [NSString stringWithFormat:@"%d people driving", group.people.count];
-        }
-
-        annotation.subtitle = [NSString stringWithFormat:@"Leaving at %@", [[NPGDateFormatterFactory timeFormatter] stringFromDate:group.time]];
-
-        [self.mapView addAnnotation:annotation];
+        [self.mapView addAnnotation:[NPGAnnotationFactory annotationWithGroup:group]];
     }];
 }
 
@@ -108,6 +92,7 @@
 
     // join group
     self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
@@ -134,7 +119,11 @@
 - (void)registerViewControllerDidFinish
 {
     // add current user to selected group
-    self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+    if ([[NPGAppSession sharedAppSession] isRegistered]) {
+        self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+        // refresh this annotation view
+    }
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
