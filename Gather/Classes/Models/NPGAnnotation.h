@@ -9,7 +9,9 @@
 @interface NPGAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonatomic) NSString *imageName;
+@property (nonatomic) UIImage *baseImage;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
 
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 

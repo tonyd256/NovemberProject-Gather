@@ -12,13 +12,19 @@
 #import "NPGBikeAnnotation.h"
 #import "NPGCarAnnotation.h"
 #import "NPGAnnotationView.h"
+#import "NPGAppSession.h"
+#import "NPGGroup.h"
+#import "NPGRegisterViewController.h"
+#import "NPGEditGroupViewController.h"
+#import "NPGGroupFactory.h"
 
-@interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
+@interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate>
 
-@property (nonatomic) NSArray *groups;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
+@property (nonatomic) NSArray *groups;
 @property (nonatomic) CLLocationManager *manager;
+@property (nonatomic) NPGGroup *selectedGroup;
 
 @end
 
@@ -28,48 +34,34 @@
 {
     [super viewDidLoad];
 
-    self.groups = @[@{@"latitude": @42.33553,
-                      @"longitude": @-71.04195,
-                      @"type": @"car"},
-                    @{@"latitude": @42.33674,
-                      @"longitude": @-71.04757,
-                      @"type": @"bike"},
-                    @{@"latitude": @42.33504,
-                      @"longitude": @-71.05203,
-                      @"type": @"run"},
-                    @{@"latitude": @42.34334,
-                      @"longitude": @-71.07847,
-                      @"type": @"car"},
-                    @{@"latitude": @42.35434,
-                      @"longitude": @-71.06553,
-                      @"type": @"bike"},
-                    @{@"latitude": @42.36527,
-                      @"longitude": @-71.05536,
-                      @"type": @"run"},
-                    @{@"latitude": @42.33915,
-                      @"longitude": @-71.09199,
-                      @"type": @"run"}];
-
-    [self.groups enumerateObjectsUsingBlock:^(NSDictionary *group, NSUInteger idx, BOOL *stop) {
-        NPGAnnotation *annotation;
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([group[@"latitude"] doubleValue], [group[@"longitude"] doubleValue]);
-
-        if ([group[@"type"] isEqualToString:@"run"]) {
-            annotation = [[NPGRunAnnotation alloc] initWithCoordinate:coordinate];
-        } else if ([group[@"type"] isEqualToString:@"bike"]) {
-            annotation = [[NPGBikeAnnotation alloc] initWithCoordinate:coordinate];
-        } else if ([group[@"type"] isEqualToString:@"car"]) {
-            annotation = [[NPGCarAnnotation alloc] initWithCoordinate:coordinate];
-        }
-
-        [self.mapView addAnnotation:annotation];
-    }];
-
+    self.groups = [NSArray new];
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
     self.manager.desiredAccuracy = kCLLocationAccuracyBest;
     self.manager.distanceFilter = 10;
     [self.manager startUpdatingLocation];
+}
+
+- (void)loadAnnotations
+{
+    [self.groups enumerateObjectsUsingBlock:^(NPGGroup *group, NSUInteger idx, BOOL *stop) {
+        NPGAnnotation *annotation;
+
+        if ([group.type isEqualToString:@"run"]) {
+            annotation = [[NPGRunAnnotation alloc] initWithCoordinate:group.location];
+            annotation.title = [NSString stringWithFormat:@"%d people running", group.people.count];
+        } else if ([group.type isEqualToString:@"bike"]) {
+            annotation = [[NPGBikeAnnotation alloc] initWithCoordinate:group.location];
+            annotation.title = [NSString stringWithFormat:@"%d people biking", group.people.count];
+        } else if ([group.type isEqualToString:@"car"]) {
+            annotation = [[NPGCarAnnotation alloc] initWithCoordinate:group.location];
+            annotation.title = [NSString stringWithFormat:@"%d people driving", group.people.count];
+        }
+
+        annotation.subtitle = [NSString stringWithFormat:@"Leaving at %@", group.time];
+
+        [self.mapView addAnnotation:annotation];
+    }];
 }
 
 #pragma mark - MKMapViewDelegate Methods
@@ -91,6 +83,32 @@
     return view;
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view.annotation isKindOfClass:[MKUserLocation class]]) {
+        return;
+    }
+
+    self.selectedGroup = self.groups[[[self.mapView annotations] indexOfObject:view.annotation]];
+    [self.mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+    self.selectedGroup = nil;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if (![[NPGAppSession sharedAppSession] isRegistered]) {
+        [self performSegueWithIdentifier:@"NPGRegisterSegue" sender:self];
+        return;
+    }
+
+    // join group
+    self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+}
+
 #pragma mark - CLLocationManagerDelegate Methods
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -100,28 +118,55 @@
     NSTimeInterval interval = [date timeIntervalSinceNow];
 
     if (abs(interval) < 15.0) {
-        self.mapView.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.1, 0.1));
+        self.mapView.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.02, 0.02));
     }
+
+    if (location.horizontalAccuracy < 0 || location.horizontalAccuracy > 25) return;
 
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;
     self.manager = nil;
 }
 
-#pragma mark - UIActionSheetDelegate Methods
+#pragma mark - NPGRegisterViewControllerDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)registerViewControllerDidFinish
 {
-    NSLog(@"%@", @(buttonIndex));
+    // add current user to selected group
+    self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Action Methods
+#pragma mark - NPGEditGroupViewControllerDelegate
 
-- (IBAction)didTapNewGroup
+- (void)editGroupViewControllerDidFinish
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"How are you getting there?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Running", @"Biking", @"Driving", nil];
+    // save selected group
+    self.groups = [self.groups arrayByAddingObject:[self.selectedGroup copy]];
+    self.selectedGroup = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self loadAnnotations];
+}
 
-    [sheet showInView:self.view];
+- (void)editGroupViewControllerDidCancel
+{
+    self.selectedGroup = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Transition Methods
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"NPGRegisterSegue"]) {
+        NPGRegisterViewController *viewController = segue.destinationViewController;
+        viewController.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"NPGEditGroupSegue"]) {
+        NPGEditGroupViewController *viewController = segue.destinationViewController;
+        self.selectedGroup = [NPGGroupFactory createGroupWithLocation:self.mapView.centerCoordinate];
+        viewController.group = self.selectedGroup;
+        viewController.delegate = self;
+    }
 }
 
 @end

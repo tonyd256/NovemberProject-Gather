@@ -16,15 +16,46 @@
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (!self) return nil;
 
-    self.image = [UIImage imageNamed:annotation.imageName];
+    self.image = annotation.baseImage;
+
+    self.enabled = YES;
+    self.canShowCallout = YES;
+    self.rightCalloutAccessoryView = [self joinButton];
 
     return self;
+}
+
+- (UIButton *)joinButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(0, 0, 55, 45);
+    [button setTitle:@"Join" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:18];
+    button.tintColor = [UIColor whiteColor];
+    button.backgroundColor = [UIColor actionTintColor];
+    return button;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+
+    if (selected) {
+        [self setImageTintColor:[UIColor actionTintColor]];
+    } else {
+        [self setImageTintColor:[UIColor blackColor]];
+    }
 }
 
 - (void)setAnnotation:(NPGAnnotation *)annotation
 {
     [super setAnnotation:annotation];
-    self.image = [UIImage imageNamed:annotation.imageName];
+    self.image = annotation.baseImage;
+}
+
+- (void)setImageTintColor:(UIColor *)color
+{
+    self.image = [self.image tintWithColor:color];
 }
 
 @end

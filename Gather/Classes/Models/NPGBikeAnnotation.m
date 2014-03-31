@@ -15,7 +15,7 @@
     self = [super initWithCoordinate:coordinate];
     if (!self) return nil;
 
-    self.imageName = @"BikeIcon";
+    self.baseImage = [UIImage imageNamed:@"BikeIcon"];
 
     return self;
 }

@@ -8,4 +8,6 @@
 
 @interface NPGAnnotationView : MKAnnotationView
 
+- (void)setImageTintColor:(UIColor *)color;
+
 @end

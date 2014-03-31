@@ -7,22 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		008A910BAF074CE8834C4BEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B95149BA5D04BD39904B673 /* UIKit.framework */; };
-		08452CACADC04F2CAB56F538 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FE39A7B51F4EE387AD3F21 /* Foundation.framework */; };
-		26EB0639BDB94E0F98786F94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8226336F4C7D4372AA56750D /* CoreGraphics.framework */; };
 		3C4209883814459483D1D166 /* NPGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAEEC06D34145D3BFB0D703 /* NPGAppDelegate.m */; };
 		5DAC54EA0FB64F9EA4835DAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A76D9802E1470B9E7B2D37 /* Images.xcassets */; };
 		7B70F0E89929472B99CD2239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8DBE78A5A46AEB973B7AC /* main.m */; };
-		8976FE5FDEF742D9A9EEAF46 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9048F6FC14E44069898D239 /* XCTest.framework */; };
+		EA28B06318E8FDB8006C7066 /* NPGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28B06218E8FDB7006C7066 /* NPGButton.m */; };
 		EAA5389A18CE86A400DE5F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAA5389918CE86A400DE5F6D /* Main.storyboard */; };
 		EAA5389D18CE9CE300DE5F6D /* NPGRunAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */; };
 		EAA538A018CE9CF300DE5F6D /* NPGBikeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5389F18CE9CF300DE5F6D /* NPGBikeAnnotation.m */; };
 		EAA538A318CE9D0200DE5F6D /* NPGCarAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA538A218CE9D0200DE5F6D /* NPGCarAnnotation.m */; };
 		EAAF75FB18CEA279007D0229 /* NPGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */; };
-		EAAF75FD18CEA2E4007D0229 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAF75FC18CEA2E4007D0229 /* MapKit.framework */; };
-		EAAF75FF18CEA2EC007D0229 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAF75FE18CEA2EC007D0229 /* CoreLocation.framework */; };
 		EAAF760218CEA4CB007D0229 /* NPGAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */; };
 		EAAF760518CEA4FB007D0229 /* NPGAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF760418CEA4FB007D0229 /* NPGAnnotation.m */; };
+		EAAF761318D16123007D0229 /* UIColor+GatherColors.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF761218D16123007D0229 /* UIColor+GatherColors.m */; };
+		EAAF761618D4C29D007D0229 /* UIImage+TintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF761518D4C29D007D0229 /* UIImage+TintColor.m */; };
+		EAAF761918E51F58007D0229 /* NPGRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF761818E51F58007D0229 /* NPGRegisterViewController.m */; };
+		EAAF761C18E52354007D0229 /* NPGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF761B18E52354007D0229 /* NPGUser.m */; };
+		EAAF762018E52442007D0229 /* NPGUserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF761F18E52442007D0229 /* NPGUserFactory.m */; };
+		EAAF762318E525D8007D0229 /* NPGAppSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF762218E525D8007D0229 /* NPGAppSession.m */; };
+		EAAF762618E68AE9007D0229 /* NPGGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF762518E68AE9007D0229 /* NPGGroup.m */; };
+		EAAF763118E7AA41007D0229 /* NPGDateFormatterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763018E7AA41007D0229 /* NPGDateFormatterFactory.m */; };
+		EAAF763418E89676007D0229 /* UIView+NibLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763318E89676007D0229 /* UIView+NibLoading.m */; };
+		EAAF763A18E8CB57007D0229 /* NPGEditGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763918E8CB57007D0229 /* NPGEditGroupViewController.m */; };
+		EAAF763D18E8DF02007D0229 /* NPGGroupFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763C18E8DF02007D0229 /* NPGGroupFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,16 +46,14 @@
 		0E778DB93AA840629186F19B /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		1ED8DBE78A5A46AEB973B7AC /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		257AAC25864D4E129044B1EA /* Gather-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Gather-Info.plist"; sourceTree = "<group>"; };
-		5B95149BA5D04BD39904B673 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		8226336F4C7D4372AA56750D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		83FE39A7B51F4EE387AD3F21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		9847600F332B4083B783610D /* Gather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4367D4A0FF4B829EF2E474 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		BA2B73BE4077437A83522F1E /* NPGAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NPGAppDelegate.h; sourceTree = "<group>"; };
 		BA80ED642A4F443396BD5FFF /* Gather-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Gather-Prefix.pch"; sourceTree = "<group>"; };
-		C9048F6FC14E44069898D239 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D5B97E3D679243D6B09B7FDF /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A76D9802E1470B9E7B2D37 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EA28B06118E8FDB7006C7066 /* NPGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGButton.h; sourceTree = "<group>"; };
+		EA28B06218E8FDB7006C7066 /* NPGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGButton.m; sourceTree = "<group>"; };
 		EAA5389918CE86A400DE5F6D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EAA5389B18CE9CE300DE5F6D /* NPGRunAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGRunAnnotation.h; sourceTree = "<group>"; };
 		EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGRunAnnotation.m; sourceTree = "<group>"; };
@@ -59,12 +63,32 @@
 		EAA538A218CE9D0200DE5F6D /* NPGCarAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGCarAnnotation.m; sourceTree = "<group>"; };
 		EAAF75F918CEA279007D0229 /* NPGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGMapViewController.h; sourceTree = "<group>"; };
 		EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGMapViewController.m; sourceTree = "<group>"; };
-		EAAF75FC18CEA2E4007D0229 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
-		EAAF75FE18CEA2EC007D0229 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		EAAF760018CEA4CB007D0229 /* NPGAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAnnotationView.h; sourceTree = "<group>"; };
 		EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGAnnotationView.m; sourceTree = "<group>"; };
 		EAAF760318CEA4FB007D0229 /* NPGAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAnnotation.h; sourceTree = "<group>"; };
 		EAAF760418CEA4FB007D0229 /* NPGAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGAnnotation.m; sourceTree = "<group>"; };
+		EAAF761118D16123007D0229 /* UIColor+GatherColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GatherColors.h"; sourceTree = "<group>"; };
+		EAAF761218D16123007D0229 /* UIColor+GatherColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GatherColors.m"; sourceTree = "<group>"; };
+		EAAF761418D4C29D007D0229 /* UIImage+TintColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TintColor.h"; sourceTree = "<group>"; };
+		EAAF761518D4C29D007D0229 /* UIImage+TintColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TintColor.m"; sourceTree = "<group>"; };
+		EAAF761718E51F58007D0229 /* NPGRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGRegisterViewController.h; sourceTree = "<group>"; };
+		EAAF761818E51F58007D0229 /* NPGRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGRegisterViewController.m; sourceTree = "<group>"; };
+		EAAF761A18E52354007D0229 /* NPGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGUser.h; sourceTree = "<group>"; };
+		EAAF761B18E52354007D0229 /* NPGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGUser.m; sourceTree = "<group>"; };
+		EAAF761E18E52442007D0229 /* NPGUserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGUserFactory.h; sourceTree = "<group>"; };
+		EAAF761F18E52442007D0229 /* NPGUserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGUserFactory.m; sourceTree = "<group>"; };
+		EAAF762118E525D8007D0229 /* NPGAppSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAppSession.h; sourceTree = "<group>"; };
+		EAAF762218E525D8007D0229 /* NPGAppSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGAppSession.m; sourceTree = "<group>"; };
+		EAAF762418E68AE9007D0229 /* NPGGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGGroup.h; sourceTree = "<group>"; };
+		EAAF762518E68AE9007D0229 /* NPGGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGGroup.m; sourceTree = "<group>"; };
+		EAAF762F18E7AA41007D0229 /* NPGDateFormatterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGDateFormatterFactory.h; sourceTree = "<group>"; };
+		EAAF763018E7AA41007D0229 /* NPGDateFormatterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGDateFormatterFactory.m; sourceTree = "<group>"; };
+		EAAF763218E89676007D0229 /* UIView+NibLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NibLoading.h"; sourceTree = "<group>"; };
+		EAAF763318E89676007D0229 /* UIView+NibLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NibLoading.m"; sourceTree = "<group>"; };
+		EAAF763818E8CB57007D0229 /* NPGEditGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGEditGroupViewController.h; sourceTree = "<group>"; };
+		EAAF763918E8CB57007D0229 /* NPGEditGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGEditGroupViewController.m; sourceTree = "<group>"; };
+		EAAF763B18E8DF02007D0229 /* NPGGroupFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGGroupFactory.h; sourceTree = "<group>"; };
+		EAAF763C18E8DF02007D0229 /* NPGGroupFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGGroupFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +96,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8976FE5FDEF742D9A9EEAF46 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,11 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAAF75FF18CEA2EC007D0229 /* CoreLocation.framework in Frameworks */,
-				EAAF75FD18CEA2E4007D0229 /* MapKit.framework in Frameworks */,
-				08452CACADC04F2CAB56F538 /* Foundation.framework in Frameworks */,
-				008A910BAF074CE8834C4BEE /* UIKit.framework in Frameworks */,
-				26EB0639BDB94E0F98786F94 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +134,6 @@
 			children = (
 				0860A66D1D4A4332BC8D1CDE /* Gather */,
 				702B3E709FF74E279FA9AF41 /* UnitTests */,
-				FEC80551363C45A9AC52E1CF /* Frameworks */,
 				275A27E410CE4C0697CF2C69 /* Products */,
 			);
 			indentWidth = 4;
@@ -150,6 +167,12 @@
 				EAA538A218CE9D0200DE5F6D /* NPGCarAnnotation.m */,
 				EAAF760318CEA4FB007D0229 /* NPGAnnotation.h */,
 				EAAF760418CEA4FB007D0229 /* NPGAnnotation.m */,
+				EAAF761A18E52354007D0229 /* NPGUser.h */,
+				EAAF761B18E52354007D0229 /* NPGUser.m */,
+				EAAF762118E525D8007D0229 /* NPGAppSession.h */,
+				EAAF762218E525D8007D0229 /* NPGAppSession.m */,
+				EAAF762418E68AE9007D0229 /* NPGGroup.h */,
+				EAAF762518E68AE9007D0229 /* NPGGroup.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,6 +240,8 @@
 			children = (
 				EAAF760018CEA4CB007D0229 /* NPGAnnotationView.h */,
 				EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */,
+				EA28B06118E8FDB7006C7066 /* NPGButton.h */,
+				EA28B06218E8FDB7006C7066 /* NPGButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +249,7 @@
 		D1770E25CAD948F4A3CAA0E6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EAAF761D18E52410007D0229 /* Factories */,
 				77B48EE0B5FA4C3E98A96BC8 /* Controllers */,
 				AD11A96561F743C5955DCF95 /* DataSources */,
 				AA4D5E553E9B4F158CB68759 /* Delegates */,
@@ -245,14 +271,17 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		D56E945A9CDD45FEBCD42E78 /* iOS */ = {
+		EAAF761D18E52410007D0229 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				83FE39A7B51F4EE387AD3F21 /* Foundation.framework */,
-				5B95149BA5D04BD39904B673 /* UIKit.framework */,
-				8226336F4C7D4372AA56750D /* CoreGraphics.framework */,
+				EAAF761E18E52442007D0229 /* NPGUserFactory.h */,
+				EAAF761F18E52442007D0229 /* NPGUserFactory.m */,
+				EAAF762F18E7AA41007D0229 /* NPGDateFormatterFactory.h */,
+				EAAF763018E7AA41007D0229 /* NPGDateFormatterFactory.m */,
+				EAAF763B18E8DF02007D0229 /* NPGGroupFactory.h */,
+				EAAF763C18E8DF02007D0229 /* NPGGroupFactory.m */,
 			);
-			name = iOS;
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		F010AC0BF6B64142AA149CCB /* Tests */ = {
@@ -267,6 +296,10 @@
 			children = (
 				EAAF75F918CEA279007D0229 /* NPGMapViewController.h */,
 				EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */,
+				EAAF761718E51F58007D0229 /* NPGRegisterViewController.h */,
+				EAAF761818E51F58007D0229 /* NPGRegisterViewController.m */,
+				EAAF763818E8CB57007D0229 /* NPGEditGroupViewController.h */,
+				EAAF763918E8CB57007D0229 /* NPGEditGroupViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -274,19 +307,14 @@
 		FAE8CDA971414DDE810CB325 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				EAAF761118D16123007D0229 /* UIColor+GatherColors.h */,
+				EAAF761218D16123007D0229 /* UIColor+GatherColors.m */,
+				EAAF761418D4C29D007D0229 /* UIImage+TintColor.h */,
+				EAAF761518D4C29D007D0229 /* UIImage+TintColor.m */,
+				EAAF763218E89676007D0229 /* UIView+NibLoading.h */,
+				EAAF763318E89676007D0229 /* UIView+NibLoading.m */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		FEC80551363C45A9AC52E1CF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EAAF75FE18CEA2EC007D0229 /* CoreLocation.framework */,
-				EAAF75FC18CEA2E4007D0229 /* MapKit.framework */,
-				D56E945A9CDD45FEBCD42E78 /* iOS */,
-				C9048F6FC14E44069898D239 /* XCTest.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,9 +427,21 @@
 			files = (
 				3C4209883814459483D1D166 /* NPGAppDelegate.m in Sources */,
 				EAAF75FB18CEA279007D0229 /* NPGMapViewController.m in Sources */,
+				EAAF761918E51F58007D0229 /* NPGRegisterViewController.m in Sources */,
 				EAAF760518CEA4FB007D0229 /* NPGAnnotation.m in Sources */,
+				EAAF762318E525D8007D0229 /* NPGAppSession.m in Sources */,
 				EAA538A018CE9CF300DE5F6D /* NPGBikeAnnotation.m in Sources */,
+				EAAF761618D4C29D007D0229 /* UIImage+TintColor.m in Sources */,
+				EAAF761318D16123007D0229 /* UIColor+GatherColors.m in Sources */,
 				EAAF760218CEA4CB007D0229 /* NPGAnnotationView.m in Sources */,
+				EAAF761C18E52354007D0229 /* NPGUser.m in Sources */,
+				EAAF763A18E8CB57007D0229 /* NPGEditGroupViewController.m in Sources */,
+				EA28B06318E8FDB8006C7066 /* NPGButton.m in Sources */,
+				EAAF763418E89676007D0229 /* UIView+NibLoading.m in Sources */,
+				EAAF763D18E8DF02007D0229 /* NPGGroupFactory.m in Sources */,
+				EAAF762618E68AE9007D0229 /* NPGGroup.m in Sources */,
+				EAAF763118E7AA41007D0229 /* NPGDateFormatterFactory.m in Sources */,
+				EAAF762018E52442007D0229 /* NPGUserFactory.m in Sources */,
 				EAA538A318CE9D0200DE5F6D /* NPGCarAnnotation.m in Sources */,
 				7B70F0E89929472B99CD2239 /* main.m in Sources */,
 				EAA5389D18CE9CE300DE5F6D /* NPGRunAnnotation.m in Sources */,

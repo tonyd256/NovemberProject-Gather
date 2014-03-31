@@ -15,7 +15,7 @@
     self = [super initWithCoordinate:coordinate];
     if (!self) return nil;
 
-    self.imageName = @"RunIcon";
+    self.baseImage = [UIImage imageNamed:@"RunIcon"];
 
     return self;
 }
