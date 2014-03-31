@@ -26,19 +26,39 @@
     [self.nameField becomeFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+#pragma mark - Private Methods
+
+- (void)createUser
 {
-    NSString *name = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *name = [self.nameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     if (name.length < 3) {
         [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"The name you entered is too short." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        return NO;
+        return;
     }
 
     [[NPGAppSession sharedAppSession] setCurrentUser:[NPGUserFactory userWithName:name]];
-
     [self.delegate registerViewControllerDidFinish];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self createUser];
     return NO;
+}
+
+#pragma mark - Actions
+
+- (IBAction)join
+{
+    [self createUser];
+}
+
+- (IBAction)cancel
+{
+    [self.delegate registerViewControllerDidFinish];
 }
 
 @end
