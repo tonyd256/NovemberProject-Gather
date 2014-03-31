@@ -15,7 +15,7 @@
 + (NPGGroup *)createGroupWithLocation:(CLLocationCoordinate2D)location
 {
     NPGGroup *group = [NPGGroup new];
-    group.location = location;
+    group.coordinate = location;
     group.time = [NSDate tomorrowWithHour:6 minute:0];
     group.type = @"run";
     return group;

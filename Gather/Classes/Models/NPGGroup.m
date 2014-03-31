@@ -7,8 +7,34 @@
 //
 
 #import "NPGGroup.h"
+#import "NPGGroupType.h"
+#import "NPGDateFormatterFactory.h"
 
 @implementation NPGGroup
+
++ (NSSet *)keyPathsForValuesAffectingTitle
+{
+    return [NSSet setWithObject:@"people"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSubtitle
+{
+    return [NSSet setWithObject:@"time"];
+}
+
+#pragma mark - Properties
+
+- (NSString *)title
+{
+    return [NSString stringWithFormat:@"%d People %@", self.people.count, [NPGGroupType actionWithGroupType:self.type]];
+}
+
+- (NSString *)subtitle
+{
+    return [NSString stringWithFormat:@"Leaving at %@", [[NPGDateFormatterFactory timeFormatter] stringFromDate:self.time]];
+}
+
+#pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone
 {
@@ -16,7 +42,7 @@
 
     [copy setType:[self.type copy]];
     [copy setTime:[self.time copy]];
-    [copy setLocation:self.location];
+    [copy setCoordinate:self.coordinate];
     [copy setPeople:[self.people copy]];
 
     return copy;

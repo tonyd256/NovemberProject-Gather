@@ -7,15 +7,14 @@
 //
 
 @class NPGEditGroupViewController;
+@class NPGGroup;
 
 @protocol NPGEditGroupViewControllerDelegate <NSObject>
 
-- (void)editGroupViewControllerDidFinish;
+- (void)editGroupViewControllerDidSaveGroup:(NPGGroup *)group;
 - (void)editGroupViewControllerDidCancel;
 
 @end
-
-@class NPGGroup;
 
 @interface NPGEditGroupViewController : UIViewController
 

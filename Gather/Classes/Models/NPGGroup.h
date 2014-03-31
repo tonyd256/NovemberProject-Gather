@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
-@interface NPGGroup : NSObject <NSCopying>
+@interface NPGGroup : NSObject <NSCopying, MKAnnotation>
 
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic) NSString *type;
-@property (nonatomic) CLLocationCoordinate2D location;
 @property (nonatomic) NSDate *time;
 @property (nonatomic) NSArray *people;
 

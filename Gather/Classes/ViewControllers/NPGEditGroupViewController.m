@@ -10,6 +10,7 @@
 #import "NPGGroup.h"
 #import "NPGDateFormatterFactory.h"
 #import "NSDate+Additions.h"
+#import "NPGGroupType.h"
 
 @interface NPGEditGroupViewController ()
 
@@ -26,7 +27,7 @@
 {
     [super viewDidLoad];
 
-    self.mapView.region = MKCoordinateRegionMake(self.group.location, MKCoordinateSpanMake(0.01, 0.01));
+    self.mapView.region = MKCoordinateRegionMake(self.group.coordinate, MKCoordinateSpanMake(0.01, 0.01));
     self.timePicker.date = self.group.time;
 }
 
@@ -37,30 +38,29 @@
     switch (self.typePicker.selectedSegmentIndex) {
         case 0:
             self.group.type = @"run";
-            self.typeImage.image = [UIImage imageNamed:@"RunIcon"];
             break;
 
         case 1:
             self.group.type = @"bike";
-            self.typeImage.image = [UIImage imageNamed:@"BikeIcon"];
             break;
 
         case 2:
             self.group.type = @"car";
-            self.typeImage.image = [UIImage imageNamed:@"CarIcon"];
             break;
 
         default:
             break;
     }
+
+    self.typeImage.image = [NPGGroupType imageWithGroupType:self.group.type];
 }
 
 - (IBAction)save
 {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.timePicker.date];
     self.group.time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
-    self.group.location = self.mapView.centerCoordinate;
-    [self.delegate editGroupViewControllerDidFinish];
+    self.group.coordinate = self.mapView.centerCoordinate;
+    [self.delegate editGroupViewControllerDidSaveGroup:self.group];
 }
 
 - (IBAction)cancel

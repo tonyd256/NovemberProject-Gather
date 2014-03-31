@@ -7,16 +7,17 @@
 //
 
 #import "NPGAnnotationView.h"
-#import "NPGAnnotation.h"
+#import "NPGGroup.h"
+#import "NPGGroupType.h"
 
 @implementation NPGAnnotationView
 
-- (instancetype)initWithAnnotation:(NPGAnnotation *)annotation reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithAnnotation:(NPGGroup *)annotation reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (!self) return nil;
 
-    self.image = annotation.baseImage;
+    self.image = [NPGGroupType imageWithGroupType:annotation.type];
 
     self.enabled = YES;
     self.canShowCallout = YES;
@@ -24,6 +25,8 @@
 
     return self;
 }
+
+#pragma mark - Private Methods
 
 - (UIButton *)joinButton
 {
@@ -47,10 +50,12 @@
     }
 }
 
-- (void)setAnnotation:(NPGAnnotation *)annotation
+#pragma mark - Public Methods
+
+- (void)configureWithAnnotation:(NPGGroup *)annotation
 {
-    [super setAnnotation:annotation];
-    self.image = annotation.baseImage;
+    self.annotation = annotation;
+    self.image = [NPGGroupType imageWithGroupType:annotation.type];
 }
 
 - (void)setImageTintColor:(UIColor *)color

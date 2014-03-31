@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
+@class NPGGroup;
+
 @interface NPGAnnotationView : MKAnnotationView
 
+- (void)configureWithAnnotation:(id<MKAnnotation>)annotation;
 - (void)setImageTintColor:(UIColor *)color;
 
 @end

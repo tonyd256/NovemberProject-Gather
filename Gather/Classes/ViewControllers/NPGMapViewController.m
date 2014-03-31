@@ -7,15 +7,12 @@
 //
 
 #import "NPGMapViewController.h"
-#import "NPGAnnotation.h"
-#import "NPGAnnotationView.h"
 #import "NPGAppSession.h"
 #import "NPGGroup.h"
 #import "NPGRegisterViewController.h"
 #import "NPGEditGroupViewController.h"
 #import "NPGGroupFactory.h"
-#import "NPGDateFormatterFactory.h"
-#import "NPGAnnotationFactory.h"
+#import "NPGMapViewDelegate.h"
 
 @interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate>
 
@@ -23,7 +20,7 @@
 
 @property (nonatomic) NSArray *groups;
 @property (nonatomic) CLLocationManager *manager;
-@property (nonatomic) NPGGroup *selectedGroup;
+@property (nonatomic) NPGMapViewDelegate *mapViewDelegate;
 
 @end
 
@@ -34,56 +31,36 @@
     [super viewDidLoad];
 
     self.groups = [NSArray new];
-    self.manager = [[CLLocationManager alloc] init];
+    self.mapViewDelegate = [NPGMapViewDelegate new];
+    self.mapView.delegate = self.mapViewDelegate;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(annotationCalloutAccessoryTapped) name:NPGAnnotationCalloutAccessoryTappedNotification object:nil];
+
+    self.manager = [CLLocationManager new];
     self.manager.delegate = self;
     self.manager.desiredAccuracy = kCLLocationAccuracyBest;
     self.manager.distanceFilter = 10;
     [self.manager startUpdatingLocation];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Private Methods
+
 - (void)loadAnnotations
 {
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.groups enumerateObjectsUsingBlock:^(NPGGroup *group, NSUInteger idx, BOOL *stop) {
-        [self.mapView addAnnotation:[NPGAnnotationFactory annotationWithGroup:group]];
+        [self.mapView addAnnotation:group];
     }];
 }
 
-#pragma mark - MKMapViewDelegate Methods
+#pragma mark - NPGMapViewDelegate Notification Methods
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(NPGAnnotation *)annotation
-{
-    if ([annotation isKindOfClass:[MKUserLocation class]]) {
-        return nil;
-    }
-
-    NPGAnnotationView *view = (NPGAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NPGAnnotationView"];
-
-    if (!view) {
-        view = [[NPGAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NPGAnnotationView"];
-    } else {
-        view.annotation = annotation;
-    }
-
-    return view;
-}
-
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
-    if ([view.annotation isKindOfClass:[MKUserLocation class]]) {
-        return;
-    }
-
-    self.selectedGroup = self.groups[[[self.mapView annotations] indexOfObject:view.annotation]];
-    [self.mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
-}
-
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
-{
-    self.selectedGroup = nil;
-}
-
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+- (void)annotationCalloutAccessoryTapped
 {
     if (![[NPGAppSession sharedAppSession] isRegistered]) {
         [self performSegueWithIdentifier:@"NPGRegisterSegue" sender:self];
@@ -91,8 +68,8 @@
     }
 
     // join group
-    self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
-
+    NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
+    group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
@@ -120,7 +97,8 @@
 {
     // add current user to selected group
     if ([[NPGAppSession sharedAppSession] isRegistered]) {
-        self.selectedGroup.people = [self.selectedGroup.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+        NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
+        group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
         // refresh this annotation view
     }
 
@@ -129,18 +107,16 @@
 
 #pragma mark - NPGEditGroupViewControllerDelegate
 
-- (void)editGroupViewControllerDidFinish
+- (void)editGroupViewControllerDidSaveGroup:(NPGGroup *)group
 {
     // save selected group
-    self.groups = [self.groups arrayByAddingObject:[self.selectedGroup copy]];
-    self.selectedGroup = nil;
+    self.groups = [self.groups arrayByAddingObject:group];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self loadAnnotations];
 }
 
 - (void)editGroupViewControllerDidCancel
 {
-    self.selectedGroup = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -153,8 +129,7 @@
         viewController.delegate = self;
     } else if ([segue.identifier isEqualToString:@"NPGEditGroupSegue"]) {
         NPGEditGroupViewController *viewController = segue.destinationViewController;
-        self.selectedGroup = [NPGGroupFactory createGroupWithLocation:self.mapView.centerCoordinate];
-        viewController.group = self.selectedGroup;
+        viewController.group = [NPGGroupFactory createGroupWithLocation:self.mapView.centerCoordinate];
         viewController.delegate = self;
     }
 }
