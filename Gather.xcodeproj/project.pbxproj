@@ -11,6 +11,7 @@
 		5DAC54EA0FB64F9EA4835DAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A76D9802E1470B9E7B2D37 /* Images.xcassets */; };
 		7B70F0E89929472B99CD2239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8DBE78A5A46AEB973B7AC /* main.m */; };
 		EA28B06318E8FDB8006C7066 /* NPGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28B06218E8FDB7006C7066 /* NPGButton.m */; };
+		EA28B06618E90E2F006C7066 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28B06518E90E2F006C7066 /* NSDate+Additions.m */; };
 		EAA5389A18CE86A400DE5F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAA5389918CE86A400DE5F6D /* Main.storyboard */; };
 		EAA5389D18CE9CE300DE5F6D /* NPGRunAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */; };
 		EAA538A018CE9CF300DE5F6D /* NPGBikeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5389F18CE9CF300DE5F6D /* NPGBikeAnnotation.m */; };
@@ -54,6 +55,8 @@
 		D8A76D9802E1470B9E7B2D37 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EA28B06118E8FDB7006C7066 /* NPGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGButton.h; sourceTree = "<group>"; };
 		EA28B06218E8FDB7006C7066 /* NPGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGButton.m; sourceTree = "<group>"; };
+		EA28B06418E90E2F006C7066 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
+		EA28B06518E90E2F006C7066 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		EAA5389918CE86A400DE5F6D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EAA5389B18CE9CE300DE5F6D /* NPGRunAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGRunAnnotation.h; sourceTree = "<group>"; };
 		EAA5389C18CE9CE300DE5F6D /* NPGRunAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGRunAnnotation.m; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				EAAF761518D4C29D007D0229 /* UIImage+TintColor.m */,
 				EAAF763218E89676007D0229 /* UIView+NibLoading.h */,
 				EAAF763318E89676007D0229 /* UIView+NibLoading.m */,
+				EA28B06418E90E2F006C7066 /* NSDate+Additions.h */,
+				EA28B06518E90E2F006C7066 /* NSDate+Additions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				EAAF763118E7AA41007D0229 /* NPGDateFormatterFactory.m in Sources */,
 				EAAF762018E52442007D0229 /* NPGUserFactory.m in Sources */,
 				EAA538A318CE9D0200DE5F6D /* NPGCarAnnotation.m in Sources */,
+				EA28B06618E90E2F006C7066 /* NSDate+Additions.m in Sources */,
 				7B70F0E89929472B99CD2239 /* main.m in Sources */,
 				EAA5389D18CE9CE300DE5F6D /* NPGRunAnnotation.m in Sources */,
 			);

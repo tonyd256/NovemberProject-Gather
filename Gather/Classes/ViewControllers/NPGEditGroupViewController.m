@@ -9,6 +9,7 @@
 #import "NPGEditGroupViewController.h"
 #import "NPGGroup.h"
 #import "NPGDateFormatterFactory.h"
+#import "NSDate+Additions.h"
 
 @interface NPGEditGroupViewController ()
 
@@ -26,7 +27,7 @@
     [super viewDidLoad];
 
     self.mapView.region = MKCoordinateRegionMake(self.group.location, MKCoordinateSpanMake(0.01, 0.01));
-    self.timePicker.date = [[NPGDateFormatterFactory timeFormatter] dateFromString:self.group.time];
+    self.timePicker.date = self.group.time;
 }
 
 #pragma mark - Actions
@@ -56,7 +57,8 @@
 
 - (IBAction)save
 {
-    self.group.time = [[NPGDateFormatterFactory timeFormatter] stringFromDate:self.timePicker.date];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.timePicker.date];
+    self.group.time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
     self.group.location = self.mapView.centerCoordinate;
     [self.delegate editGroupViewControllerDidFinish];
 }

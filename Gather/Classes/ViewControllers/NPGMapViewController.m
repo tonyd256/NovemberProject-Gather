@@ -17,6 +17,7 @@
 #import "NPGRegisterViewController.h"
 #import "NPGEditGroupViewController.h"
 #import "NPGGroupFactory.h"
+#import "NPGDateFormatterFactory.h"
 
 @interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate>
 
@@ -58,7 +59,7 @@
             annotation.title = [NSString stringWithFormat:@"%d people driving", group.people.count];
         }
 
-        annotation.subtitle = [NSString stringWithFormat:@"Leaving at %@", group.time];
+        annotation.subtitle = [NSString stringWithFormat:@"Leaving at %@", [[NPGDateFormatterFactory timeFormatter] stringFromDate:group.time]];
 
         [self.mapView addAnnotation:annotation];
     }];

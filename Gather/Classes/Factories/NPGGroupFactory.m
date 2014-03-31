@@ -8,13 +8,15 @@
 
 #import "NPGGroupFactory.h"
 #import "NPGGroup.h"
+#import "NSDate+Additions.h"
+
 @implementation NPGGroupFactory
 
 + (NPGGroup *)createGroupWithLocation:(CLLocationCoordinate2D)location
 {
     NPGGroup *group = [NPGGroup new];
     group.location = location;
-    group.time = @"6:00 AM";
+    group.time = [NSDate tomorrowWithHour:6 minute:0];
     group.type = @"run";
     return group;
 }
