@@ -8,7 +8,8 @@
 
 @interface NPGUser : NSObject
 
-@property (nonatomic) NSString *userID;
+@property (nonatomic) NSString *objectID;
+@property (nonatomic) NSString *deviceID;
 @property (nonatomic) NSString *name;
 
 @end

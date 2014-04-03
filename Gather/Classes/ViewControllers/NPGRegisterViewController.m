@@ -37,7 +37,8 @@
         return;
     }
 
-    [[NPGAppSession sharedAppSession] setCurrentUser:[NPGUserFactory userWithName:name]];
+    NPGUser *user = [NPGUserFactory userWithName:name];
+    [[NPGAppSession sharedAppSession] setCurrentUser:user];
     [self.delegate registerViewControllerDidFinish];
 }
 

@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+
 #import "NPGMapViewController.h"
 #import "NPGAppSession.h"
 #import "NPGGroup.h"

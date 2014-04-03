@@ -16,7 +16,7 @@
     NPGUser *user = [NPGUser new];
 
     user.name = name;
-    user.userID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    user.deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 
     return user;
 }
@@ -25,16 +25,18 @@
 {
     NPGUser *user = [NPGUser new];
 
+    user.objectID = dict[@"objectID"];
     user.name = dict[@"name"];
-    user.userID = dict[@"userID"];
+    user.deviceID = dict[@"deviceID"];
 
     return user;
 }
 
 + (NSDictionary *)dictionayWithUser:(NPGUser *)user
 {
-    return @{@"name": user.name,
-             @"userID": user.userID};
+    return @{@"objectID": user.objectID,
+             @"name": user.name,
+             @"deviceID": user.deviceID};
 }
 
 @end

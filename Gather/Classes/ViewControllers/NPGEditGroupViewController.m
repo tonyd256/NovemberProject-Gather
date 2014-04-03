@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+
 #import "NPGEditGroupViewController.h"
 #import "NPGGroup.h"
 #import "NPGDateFormatterFactory.h"
@@ -60,6 +63,7 @@
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.timePicker.date];
     self.group.time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
     self.group.coordinate = self.mapView.centerCoordinate;
+
     [self.delegate editGroupViewControllerDidSaveGroup:self.group];
 }
 
