@@ -7,10 +7,12 @@
 //
 
 @class NPGUser;
+@class NPGGroup;
 
 @interface NPGAppSession : NSObject
 
 @property (nonatomic) NPGUser *currentUser;
+@property (nonatomic) NPGGroup *currentGroup;
 
 + (instancetype)sharedAppSession;
 

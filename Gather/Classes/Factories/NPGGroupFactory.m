@@ -18,6 +18,7 @@
     group.coordinate = location;
     group.time = [NSDate tomorrowWithHour:6 minute:0];
     group.type = @"run";
+    group.people = @[];
     return group;
 }
 

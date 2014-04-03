@@ -15,4 +15,9 @@
     return [UIColor colorWithRed:0 green:122/255.0 blue:1.0 alpha:1.0];
 }
 
++ (UIColor *)negativeTintColor
+{
+    return [UIColor colorWithRed:177/255.0 green:0 blue:2/255.0 alpha:1.0];
+}
+
 @end

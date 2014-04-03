@@ -9,5 +9,6 @@
 @interface UIColor (GatherColors)
 
 + (UIColor *)actionTintColor;
++ (UIColor *)negativeTintColor;
 
 @end
