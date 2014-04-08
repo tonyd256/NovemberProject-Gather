@@ -11,6 +11,7 @@
 @interface NPGUserFactory : NSObject
 
 + (NPGUser *)userWithName:(NSString *)name;
++ (NPGUser *)userWithJSON:(NSDictionary *)json;
 + (NPGUser *)userWithDictionary:(NSDictionary *)dict;
 
 + (NSDictionary *)dictionayWithUser:(NPGUser *)user;

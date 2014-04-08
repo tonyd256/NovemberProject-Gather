@@ -11,10 +11,12 @@
 #import "NPGUser.h"
 
 static NSString *const NPGUserStorageKey = @"user";
+static NSString *const NPGHasAskedStorageKey = @"hasAsked";
 
 @implementation NPGAppSession
 
 @synthesize currentUser = _currentUser;
+@synthesize hasAskedPushPermission = _hasAskedPushPermission;
 
 + (instancetype)sharedAppSession
 {
@@ -44,6 +46,23 @@ static NSString *const NPGUserStorageKey = @"user";
 {
     _currentUser = currentUser;
     [[NSUserDefaults standardUserDefaults] setObject:[NPGUserFactory dictionayWithUser:currentUser] forKey:NPGUserStorageKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)hasAskedPushPermission
+{
+    if (_hasAskedPushPermission) {
+        return _hasAskedPushPermission;
+    }
+
+    _hasAskedPushPermission = [[NSUserDefaults standardUserDefaults] boolForKey:NPGHasAskedStorageKey];
+    return _hasAskedPushPermission;
+}
+
+- (void)setHasAskedPushPermission:(BOOL)hasAskedPushPermission
+{
+    _hasAskedPushPermission = hasAskedPushPermission;
+    [[NSUserDefaults standardUserDefaults] setBool:_hasAskedPushPermission forKey:NPGHasAskedStorageKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

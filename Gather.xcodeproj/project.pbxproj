@@ -28,6 +28,7 @@
 		EAAF763D18E8DF02007D0229 /* NPGGroupFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763C18E8DF02007D0229 /* NPGGroupFactory.m */; };
 		EAB4BD5F18E9EFD000F39288 /* NPGMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4BD5E18E9EFD000F39288 /* NPGMapViewDelegate.m */; };
 		EAB4BD6218EA0DE800F39288 /* NPGGroupType.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4BD6118EA0DE800F39288 /* NPGGroupType.m */; };
+		EAB4BD6518F46DD100F39288 /* NPGAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4BD6418F46DD100F39288 /* NPGAPIClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		EAB4BD5E18E9EFD000F39288 /* NPGMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGMapViewDelegate.m; sourceTree = "<group>"; };
 		EAB4BD6018EA0DE800F39288 /* NPGGroupType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGGroupType.h; sourceTree = "<group>"; };
 		EAB4BD6118EA0DE800F39288 /* NPGGroupType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGGroupType.m; sourceTree = "<group>"; };
+		EAB4BD6318F46DD100F39288 /* NPGAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAPIClient.h; sourceTree = "<group>"; };
+		EAB4BD6418F46DD100F39288 /* NPGAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGAPIClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +167,8 @@
 				EAAF762518E68AE9007D0229 /* NPGGroup.m */,
 				EAB4BD6018EA0DE800F39288 /* NPGGroupType.h */,
 				EAB4BD6118EA0DE800F39288 /* NPGGroupType.m */,
+				EAB4BD6318F46DD100F39288 /* NPGAPIClient.h */,
+				EAB4BD6418F46DD100F39288 /* NPGAPIClient.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -431,6 +436,7 @@
 				EAAF761C18E52354007D0229 /* NPGUser.m in Sources */,
 				EAAF763A18E8CB57007D0229 /* NPGEditGroupViewController.m in Sources */,
 				EA28B06318E8FDB8006C7066 /* NPGButton.m in Sources */,
+				EAB4BD6518F46DD100F39288 /* NPGAPIClient.m in Sources */,
 				EAAF763418E89676007D0229 /* UIView+NibLoading.m in Sources */,
 				EAAF763D18E8DF02007D0229 /* NPGGroupFactory.m in Sources */,
 				EAAF762618E68AE9007D0229 /* NPGGroup.m in Sources */,

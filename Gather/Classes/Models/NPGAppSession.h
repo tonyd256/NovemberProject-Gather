@@ -13,6 +13,7 @@
 
 @property (nonatomic) NPGUser *currentUser;
 @property (nonatomic) NPGGroup *currentGroup;
+@property (nonatomic) BOOL hasAskedPushPermission;
 
 + (instancetype)sharedAppSession;
 

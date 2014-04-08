@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
+
 @class NPGGroup;
 
 @interface NPGAnnotationView : MKAnnotationView

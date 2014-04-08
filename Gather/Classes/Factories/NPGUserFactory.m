@@ -21,6 +21,17 @@
     return user;
 }
 
++ (NPGUser *)userWithJSON:(NSDictionary *)json
+{
+    NPGUser *user = [NPGUser new];
+
+    user.objectID = json[@"_id"];
+    user.name = json[@"name"];
+    user.deviceID = json[@"deviceID"];
+
+    return user;
+}
+
 + (NPGUser *)userWithDictionary:(NSDictionary *)dict
 {
     NPGUser *user = [NPGUser new];

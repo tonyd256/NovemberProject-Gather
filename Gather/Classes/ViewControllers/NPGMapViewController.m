@@ -17,13 +17,17 @@
 #import "NPGGroupFactory.h"
 #import "NPGMapViewDelegate.h"
 
-@interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate>
+static NSString *const NPGEditGroupActionKey = @"NPGEditGroupActionKey";
+static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
+
+@interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (nonatomic) NSArray *groups;
 @property (nonatomic) CLLocationManager *manager;
 @property (nonatomic) NPGMapViewDelegate *mapViewDelegate;
+@property (nonatomic) NSString *savedAction;
 
 @end
 
@@ -61,12 +65,23 @@
     }];
 }
 
+- (BOOL)registerUser
+{
+    if ([[NPGAppSession sharedAppSession] hasAskedPushPermission]) {
+        return NO;
+    }
+
+    [[[UIAlertView alloc] initWithTitle:@"Push Notifications" message:@"Gather would like to send you notifications when people join or comment on your group." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    return YES;
+}
+
 #pragma mark - NPGMapViewDelegate Notification Methods
 
 - (void)annotationCalloutAccessoryTapped
 {
     if (![[NPGAppSession sharedAppSession] isRegistered]) {
         [self performSegueWithIdentifier:@"NPGRegisterSegue" sender:self];
+        self.savedAction = NPGJoinGroupActionKey;
         return;
     }
 
@@ -98,14 +113,20 @@
 
 - (void)registerViewControllerDidFinish
 {
-    // add current user to selected group
     if ([[NPGAppSession sharedAppSession] isRegistered]) {
-        NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
-        group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
-        // refresh this annotation view
+        if (![self registerUser]) {
+            if ([self.savedAction isEqualToString:NPGJoinGroupActionKey]) {
+                NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
+                group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else if ([self.savedAction isEqualToString:NPGEditGroupActionKey]) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self performSegueWithIdentifier:@"NPGEditGroupSegue" sender:self];
+            }
+        }
     }
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.savedAction = nil;
 }
 
 #pragma mark - NPGEditGroupViewControllerDelegate
@@ -121,6 +142,25 @@
 - (void)editGroupViewControllerDidCancel
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+}
+
+#pragma mark - Action Methods
+
+- (IBAction)createGroup
+{
+    if ([[NPGAppSession sharedAppSession] isRegistered]) {
+        return [self performSegueWithIdentifier:@"NPGEditGroupSegue" sender:self];
+    }
+
+    self.savedAction = NPGEditGroupActionKey;
+    [self performSegueWithIdentifier:@"NPGRegisterSegue" sender:self];
 }
 
 #pragma mark - Transition Methods

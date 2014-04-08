@@ -41,13 +41,14 @@
                     <navigationItem key="navigationItem" title="Gather" id="eju-LZ-1QU">
                         <barButtonItem key="rightBarButtonItem" title="New Group" id="Bdg-ZN-ioR">
                             <connections>
-                                <segue destination="j2T-X7-LlA" kind="modal" identifier="NPGEditGroupSegue" id="mdE-Y5-e4P"/>
+                                <action selector="createGroup" destination="yr8-fY-OPF" id="el4-GX-raj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="P83-MZ-aXT" id="hpd-rR-OdW"/>
                         <segue destination="3iN-n0-W4d" kind="modal" identifier="NPGRegisterSegue" id="DjL-JR-MqR"/>
+                        <segue destination="j2T-X7-LlA" kind="modal" identifier="NPGEditGroupSegue" id="Qhn-xb-hTq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThR-s5-iID" userLabel="First Responder" sceneMemberID="firstResponder"/>

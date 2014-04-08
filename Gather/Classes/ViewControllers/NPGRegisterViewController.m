@@ -8,8 +8,8 @@
 
 #import "NPGRegisterViewController.h"
 #import "NPGUser.h"
-#import "NPGUserFactory.h"
 #import "NPGAppSession.h"
+#import "NPGAPIClient.h"
 
 @interface NPGRegisterViewController () <UITextFieldDelegate>
 
@@ -37,10 +37,17 @@
         return;
     }
 
-    NPGUser *user = [NPGUserFactory userWithName:name];
-    [[NPGAppSession sharedAppSession] setCurrentUser:user];
-    [self.delegate registerViewControllerDidFinish];
+    [NPGAPIClient createUserWithName:name completionHandler:^(NPGUser *user) {
+        if (!user) {
+            [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There was an error creating the user." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            return;
+        }
+
+        [[NPGAppSession sharedAppSession] setCurrentUser:user];
+        [self.delegate registerViewControllerDidFinish];
+    }];
 }
+
 
 #pragma mark - UITextFieldDelegate
 
