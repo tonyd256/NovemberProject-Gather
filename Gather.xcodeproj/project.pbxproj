@@ -365,6 +365,11 @@
 				CLASSPREFIX = NPG;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = tstormlabs;
+				TargetAttributes = {
+					7BA12E0655584ADD937657E6 = {
+						DevelopmentTeam = 7X7CX2JX3F;
+					};
+				};
 			};
 			buildConfigurationList = E13AB5BAE52044D6904B3981 /* Build configuration list for PBXProject "Gather" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -470,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Anthony DiPasquale (QDLPNFYATP)";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -490,6 +496,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "DFA87224-A934-477E-9F87-21FAB9D1ACC4";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -501,6 +508,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Anthony DiPasquale (QDLPNFYATP)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -519,6 +527,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "DFA87224-A934-477E-9F87-21FAB9D1ACC4";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

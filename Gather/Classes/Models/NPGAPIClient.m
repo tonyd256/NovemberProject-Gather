@@ -13,7 +13,7 @@
 #import "NPGGroup.h"
 #import "NPGGroupFactory.h"
 
-static NSString *const NPGAPIBaseURL = @"http://localhost:3000/api/v1/";
+static NSString *const NPGAPIBaseURL = @"https://novproject-gather.herokuapp.com/api/v1/";
 
 @implementation NPGAPIClient
 
@@ -38,7 +38,10 @@ static NSString *const NPGAPIBaseURL = @"http://localhost:3000/api/v1/";
         }
 
         NPGUser *user = [NPGUserFactory userWithJSON:[NSJSONSerialization JSONObjectWithData:data options:0 error:nil]];
-        handler(user);
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(user);
+        });
     }] resume];
 }
 
@@ -64,7 +67,40 @@ static NSString *const NPGAPIBaseURL = @"http://localhost:3000/api/v1/";
             NSLog(@"Returned: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         }
 
-        handler();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler();
+        });
+    }] resume];
+}
+
++ (void)createGroupWithType:(NSString *)type time:(NSDate *)time coordinate:(CLLocationCoordinate2D)coordinate completionHandler:(NPGGroupCompletionHandler)handler
+{
+    NSDictionary *params = @{@"type": type,
+                             @"time": [time description],
+                             @"latitude": @(coordinate.latitude),
+                             @"longitude": @(coordinate.longitude),
+                             @"owner": [NPGAppSession sharedAppSession].currentUser.objectID};
+
+    NSURL *url = [NSURL URLWithString:@"groups" relativeToURL:[NSURL URLWithString:NPGAPIBaseURL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
+    request.HTTPMethod = @"POST";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+
+        if (httpResponse.statusCode != 200) {
+            NSLog(@"Returned: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            handler(nil);
+            return;
+        }
+
+        NPGGroup *group = [NPGGroupFactory groupWithJSON:[NSJSONSerialization JSONObjectWithData:data options:0 error:nil]];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(group);
+        });
     }] resume];
 }
 

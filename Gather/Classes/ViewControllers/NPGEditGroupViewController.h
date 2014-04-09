@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
+
 @class NPGEditGroupViewController;
 @class NPGGroup;
 
@@ -18,7 +20,7 @@
 
 @interface NPGEditGroupViewController : UIViewController
 
-@property (nonatomic) NPGGroup *group;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, weak) id<NPGEditGroupViewControllerDelegate>delegate;
 
 @end

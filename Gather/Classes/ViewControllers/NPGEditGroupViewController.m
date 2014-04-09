@@ -7,13 +7,13 @@
 //
 
 #import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
 
 #import "NPGEditGroupViewController.h"
 #import "NPGGroup.h"
 #import "NPGDateFormatterFactory.h"
 #import "NSDate+Additions.h"
 #import "NPGGroupType.h"
+#import "NPGAPIClient.h"
 
 @interface NPGEditGroupViewController ()
 
@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *timePicker;
 @property (weak, nonatomic) IBOutlet UIImageView *typeImage;
+
+@property (nonatomic) NSString *selectedType;
 
 @end
 
@@ -30,8 +32,9 @@
 {
     [super viewDidLoad];
 
-    self.mapView.region = MKCoordinateRegionMake(self.group.coordinate, MKCoordinateSpanMake(0.01, 0.01));
-    self.timePicker.date = self.group.time;
+    self.mapView.region = MKCoordinateRegionMake(self.coordinate, MKCoordinateSpanMake(0.01, 0.01));
+    self.timePicker.date = [NSDate tomorrowWithHour:6 minute:0];
+    self.selectedType = @"run";
 }
 
 #pragma mark - Actions
@@ -40,31 +43,32 @@
 {
     switch (self.typePicker.selectedSegmentIndex) {
         case 0:
-            self.group.type = @"run";
+            self.selectedType = @"run";
             break;
 
         case 1:
-            self.group.type = @"bike";
+            self.selectedType = @"bike";
             break;
 
         case 2:
-            self.group.type = @"car";
+            self.selectedType = @"car";
             break;
 
         default:
             break;
     }
 
-    self.typeImage.image = [NPGGroupType imageWithGroupType:self.group.type];
+    self.typeImage.image = [NPGGroupType imageWithGroupType:self.selectedType];
 }
 
 - (IBAction)save
 {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.timePicker.date];
-    self.group.time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
-    self.group.coordinate = self.mapView.centerCoordinate;
+    NSDate *time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
 
-    [self.delegate editGroupViewControllerDidSaveGroup:self.group];
+    [NPGAPIClient createGroupWithType:self.selectedType time:time coordinate:self.mapView.centerCoordinate completionHandler:^(NPGGroup *group) {
+        [self.delegate editGroupViewControllerDidSaveGroup:group];
+    }];
 }
 
 - (IBAction)cancel

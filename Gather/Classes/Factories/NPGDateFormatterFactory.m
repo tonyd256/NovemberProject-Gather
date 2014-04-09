@@ -23,4 +23,16 @@
     return timeFormatter;
 }
 
++ (NSDateFormatter *)ISO8601Formatter
+{
+    static NSDateFormatter *isoFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        isoFormatter = [[NSDateFormatter alloc] init];
+        isoFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssX";
+    });
+
+    return isoFormatter;
+}
+
 @end

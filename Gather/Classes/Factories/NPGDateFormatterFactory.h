@@ -9,5 +9,6 @@
 @interface NPGDateFormatterFactory : NSObject
 
 + (NSDateFormatter *)timeFormatter;
++ (NSDateFormatter *)ISO8601Formatter;
 
 @end

@@ -113,29 +113,33 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 
 - (void)registerViewControllerDidFinish
 {
-    if ([[NPGAppSession sharedAppSession] isRegistered]) {
-        if (![self registerUser]) {
-            if ([self.savedAction isEqualToString:NPGJoinGroupActionKey]) {
-                NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
-                group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            } else if ([self.savedAction isEqualToString:NPGEditGroupActionKey]) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                [self performSegueWithIdentifier:@"NPGEditGroupSegue" sender:self];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([[NPGAppSession sharedAppSession] isRegistered]) {
+            if (![self registerUser]) {
+                if ([self.savedAction isEqualToString:NPGJoinGroupActionKey]) {
+                    NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
+                    group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+                } else if ([self.savedAction isEqualToString:NPGEditGroupActionKey]) {
+                    [self performSegueWithIdentifier:@"NPGEditGroupSegue" sender:self];
+                }
             }
         }
-    }
 
-    self.savedAction = nil;
+        self.savedAction = nil;
+    }];
 }
 
 #pragma mark - NPGEditGroupViewControllerDelegate
 
 - (void)editGroupViewControllerDidSaveGroup:(NPGGroup *)group
 {
-    // save selected group
-    self.groups = [self.groups arrayByAddingObject:group];
     [self dismissViewControllerAnimated:YES completion:nil];
+
+    if (!group) {
+        [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There was an error creating your group." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+
+    self.groups = [self.groups arrayByAddingObject:group];
     [self loadAnnotations];
 }
 
@@ -172,7 +176,7 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
         viewController.delegate = self;
     } else if ([segue.identifier isEqualToString:@"NPGEditGroupSegue"]) {
         NPGEditGroupViewController *viewController = segue.destinationViewController;
-        viewController.group = [NPGGroupFactory createGroupWithLocation:self.mapView.centerCoordinate];
+        viewController.coordinate = self.mapView.centerCoordinate;
         viewController.delegate = self;
     }
 }
