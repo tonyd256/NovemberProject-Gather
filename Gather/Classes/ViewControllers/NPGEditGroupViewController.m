@@ -66,7 +66,11 @@
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.timePicker.date];
     NSDate *time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
 
-    [NPGAPIClient createGroupWithType:self.selectedType time:time coordinate:self.mapView.centerCoordinate completionHandler:^(NPGGroup *group) {
+    double lat = [[NSString stringWithFormat:@"%.5f", self.mapView.centerCoordinate.latitude] doubleValue];
+    double lng = [[NSString stringWithFormat:@"%.5f", self.mapView.centerCoordinate.longitude] doubleValue];
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(lat, lng);
+
+    [NPGAPIClient createGroupWithType:self.selectedType time:time coordinate:coordinate completionHandler:^(NPGGroup *group) {
         [self.delegate editGroupViewControllerDidSaveGroup:group];
     }];
 }
