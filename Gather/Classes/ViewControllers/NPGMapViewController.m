@@ -16,6 +16,7 @@
 #import "NPGEditGroupViewController.h"
 #import "NPGGroupFactory.h"
 #import "NPGMapViewDelegate.h"
+#import "NPGAPIClient.h"
 
 static NSString *const NPGEditGroupActionKey = @"NPGEditGroupActionKey";
 static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
@@ -59,9 +60,12 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 
 - (void)loadAnnotations
 {
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    [self.groups enumerateObjectsUsingBlock:^(NPGGroup *group, NSUInteger idx, BOOL *stop) {
-        [self.mapView addAnnotation:group];
+    [NPGAPIClient fetchGroupsWithCoordinate:self.mapView.centerCoordinate range:self.mapView.region.span.longitudeDelta completionHandler:^(NSArray *groups) {
+        self.groups = groups;
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        [self.groups enumerateObjectsUsingBlock:^(NPGGroup *group, NSUInteger idx, BOOL *stop) {
+            [self.mapView addAnnotation:group];
+        }];
     }];
 }
 
@@ -107,6 +111,8 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;
     self.manager = nil;
+
+    [self loadAnnotations];
 }
 
 #pragma mark - NPGRegisterViewControllerDelegate
@@ -139,7 +145,7 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
         [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There was an error creating your group." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 
-    self.groups = [self.groups arrayByAddingObject:group];
+    [NPGAppSession sharedAppSession].currentGroup = group;
     [self loadAnnotations];
 }
 

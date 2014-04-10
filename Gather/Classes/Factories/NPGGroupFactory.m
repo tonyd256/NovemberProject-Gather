@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 tstormlabs. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "NPGGroupFactory.h"
 #import "NPGGroup.h"
