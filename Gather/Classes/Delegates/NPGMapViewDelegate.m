@@ -12,6 +12,7 @@
 
 static NSString *const NPGAnnotationViewReuseIdentifier = @"NPGAnnotationView";
 NSString *const NPGAnnotationCalloutAccessoryTappedNotification = @"NPGAnnotationCalloutAccessoryTappedNotification";
+NSString *const NPGMapViewRegionDidChange = @"NPGMapViewRegionDidChange";
 
 @implementation NPGMapViewDelegate
 
@@ -44,6 +45,11 @@ NSString *const NPGAnnotationCalloutAccessoryTappedNotification = @"NPGAnnotatio
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:NPGAnnotationCalloutAccessoryTappedNotification object:nil];
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NPGMapViewRegionDidChange object:nil];
 }
 
 @end

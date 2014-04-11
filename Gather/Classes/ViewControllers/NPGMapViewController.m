@@ -43,6 +43,7 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
     self.mapView.delegate = self.mapViewDelegate;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(annotationCalloutAccessoryTapped) name:NPGAnnotationCalloutAccessoryTappedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapViewRegionDidChange) name:NPGMapViewRegionDidChange object:nil];
 
     self.manager = [CLLocationManager new];
     self.manager.delegate = self;
@@ -138,6 +139,11 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
     } else {
         [self joinGroup:newGroup];
     }
+}
+
+- (void)mapViewRegionDidChange
+{
+    [self loadAnnotations];
 }
 
 #pragma mark - CLLocationManagerDelegate Methods

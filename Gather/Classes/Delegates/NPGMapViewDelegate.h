@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 
 extern NSString *const NPGAnnotationCalloutAccessoryTappedNotification;
+extern NSString *const NPGMapViewRegionDidChange;
 
 @interface NPGMapViewDelegate : NSObject <MKMapViewDelegate>
 

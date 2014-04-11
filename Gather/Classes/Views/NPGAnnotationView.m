@@ -51,7 +51,7 @@
 {
     NPGGroup *group = (NPGGroup *)self.annotation;
 
-    if (group.people.count) {// == [[NPGAppSession sharedAppSession] currentGroup]) {
+    if ([group isEqual:[NPGAppSession sharedAppSession].currentGroup]) {
         self.rightCalloutAccessoryView = self.leaveButton;
     } else {
         self.rightCalloutAccessoryView = self.joinButton;
