@@ -106,7 +106,7 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
         self.mapView.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.02, 0.02));
     }
 
-    if (location.horizontalAccuracy < 0 || location.horizontalAccuracy > 25) return;
+    if (location.horizontalAccuracy < 0 || location.horizontalAccuracy > 100) return;
 
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;

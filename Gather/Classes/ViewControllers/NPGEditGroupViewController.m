@@ -32,9 +32,16 @@
 {
     [super viewDidLoad];
 
-    self.mapView.region = MKCoordinateRegionMake(self.coordinate, MKCoordinateSpanMake(0.01, 0.01));
     self.timePicker.date = [NSDate tomorrowWithHour:6 minute:0];
     self.selectedType = @"run";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    MKCoordinateRegion region = [self.mapView regionThatFits:MKCoordinateRegionMake(self.coordinate, MKCoordinateSpanMake(0.002, 0.002))];
+    self.mapView.region = region;
 }
 
 #pragma mark - Actions
@@ -66,8 +73,8 @@
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:self.timePicker.date];
     NSDate *time = [NSDate tomorrowWithHour:components.hour minute:components.minute];
 
-    double lat = [[NSString stringWithFormat:@"%.5f", self.mapView.centerCoordinate.latitude] doubleValue];
-    double lng = [[NSString stringWithFormat:@"%.5f", self.mapView.centerCoordinate.longitude] doubleValue];
+    double lat = [[NSString stringWithFormat:@"%.6f", self.mapView.centerCoordinate.latitude] doubleValue];
+    double lng = [[NSString stringWithFormat:@"%.6f", self.mapView.centerCoordinate.longitude] doubleValue];
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(lat, lng);
 
     [NPGAPIClient createGroupWithType:self.selectedType time:time coordinate:coordinate completionHandler:^(NPGGroup *group) {
