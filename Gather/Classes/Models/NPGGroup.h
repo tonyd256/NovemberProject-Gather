@@ -8,7 +8,7 @@
 
 #import <MapKit/MapKit.h>
 
-@interface NPGGroup : NSObject <NSCopying, MKAnnotation>
+@interface NPGGroup : NSObject <MKAnnotation>
 
 @property (nonatomic) NSString *objectID;
 @property (nonatomic, copy) NSString *title;

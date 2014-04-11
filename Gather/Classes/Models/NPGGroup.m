@@ -26,7 +26,7 @@
 
 - (NSString *)title
 {
-    return [NSString stringWithFormat:@"%d People %@", self.people.count, [NPGGroupType actionWithGroupType:self.type]];
+    return [NSString stringWithFormat:@"%lu People %@", (unsigned long)self.people.count, [NPGGroupType actionWithGroupType:self.type]];
 }
 
 - (NSString *)subtitle
@@ -34,18 +34,21 @@
     return [NSString stringWithFormat:@"Leaving at %@", [[NPGDateFormatterFactory timeFormatter] stringFromDate:self.time]];
 }
 
-#pragma mark - NSCopying
+#pragma mark - Equality
 
-- (id)copyWithZone:(NSZone *)zone
+- (BOOL)isEqual:(id)object
 {
-    id copy = [[self class] new];
+    if (![object isKindOfClass:[self class]]) {
+        return NO;
+    }
 
-    [copy setType:[self.type copy]];
-    [copy setTime:[self.time copy]];
-    [copy setCoordinate:self.coordinate];
-    [copy setPeople:[self.people copy]];
+    NPGGroup *other = (NPGGroup *)object;
+    return [self.objectID isEqualToString:other.objectID];
+}
 
-    return copy;
+- (NSUInteger)hash
+{
+    return [self.objectID hash];
 }
 
 @end

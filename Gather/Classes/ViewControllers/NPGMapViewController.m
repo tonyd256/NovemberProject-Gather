@@ -61,12 +61,35 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 - (void)loadAnnotations
 {
     [NPGAPIClient fetchGroupsWithCoordinate:self.mapView.centerCoordinate range:self.mapView.region.span.longitudeDelta completionHandler:^(NSArray *groups) {
+        [self syncAnnotations:groups additiveOnly:NO];
         self.groups = groups;
-        [self.mapView removeAnnotations:self.mapView.annotations];
-        [self.groups enumerateObjectsUsingBlock:^(NPGGroup *group, NSUInteger idx, BOOL *stop) {
-            [self.mapView addAnnotation:group];
-        }];
     }];
+}
+
+- (void)syncAnnotations:(NSArray *)annotations additiveOnly:(BOOL)addOnly
+{
+    NSMutableSet *oldSet = [NSMutableSet setWithArray:self.mapView.annotations];
+    NSMutableSet *newSet = [NSMutableSet setWithArray:annotations];
+
+    [newSet minusSet:oldSet];
+
+    [newSet enumerateObjectsUsingBlock:^(NPGGroup *group, BOOL *stop) {
+        [self.mapView addAnnotation:group];
+    }];
+
+    if (addOnly) {
+        return;
+    }
+
+    [oldSet minusSet:[NSSet setWithArray:annotations]];
+    [self.mapView removeAnnotations:[oldSet allObjects]];
+}
+
+- (void)updateAnnotationWithGroup:(NPGGroup *)group
+{
+    NSArray *filtered = [self.mapView.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"class == %@ AND objectID == %@", [NPGGroup class], group.objectID]];
+    NPGGroup *oldGroup = [filtered firstObject];
+    oldGroup = group;
 }
 
 - (BOOL)registerUser
@@ -79,6 +102,14 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
     return YES;
 }
 
+- (void)joinGroup:(NPGGroup *)group
+{
+    [NPGAPIClient joinGroup:group completionHandler:^(NPGGroup *returnedGroup) {
+        [NPGAppSession sharedAppSession].currentGroup = returnedGroup;
+        [self updateAnnotationWithGroup:returnedGroup];
+    }];
+}
+
 #pragma mark - NPGMapViewDelegate Notification Methods
 
 - (void)annotationCalloutAccessoryTapped
@@ -89,9 +120,24 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
         return;
     }
 
-    // join group
-    NPGGroup *group = [[self.mapView selectedAnnotations] firstObject];
-    group.people = [group.people arrayByAddingObject:[[NPGAppSession sharedAppSession] currentUser]];
+    NPGGroup *newGroup = [[self.mapView selectedAnnotations] firstObject];
+
+    if ([NPGAppSession sharedAppSession].currentGroup) {
+        [NPGAPIClient leaveGroup:[NPGAppSession sharedAppSession].currentGroup completionHandler:^(NPGGroup *group) {
+            if (!group.objectID) {
+                [self.mapView removeAnnotations:[self.mapView selectedAnnotations]];
+            } else {
+                [self updateAnnotationWithGroup:group];
+            }
+
+            if (![[NPGAppSession sharedAppSession].currentGroup isEqual:newGroup]) {
+                [self joinGroup:newGroup];
+            }
+            [NPGAppSession sharedAppSession].currentGroup = nil;
+        }];
+    } else {
+        [self joinGroup:newGroup];
+    }
 }
 
 #pragma mark - CLLocationManagerDelegate Methods

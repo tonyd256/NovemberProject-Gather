@@ -24,8 +24,8 @@ typedef void (^NPGGroupsCompletionHandler)(NSArray *groups);
 
 + (void)fetchGroupsWithCoordinate:(CLLocationCoordinate2D)coordinate range:(double)range completionHandler:(NPGGroupsCompletionHandler)handler;
 + (void)createGroupWithType:(NSString *)type time:(NSDate *)time coordinate:(CLLocationCoordinate2D)coordinate completionHandler:(NPGGroupCompletionHandler)handler;
-//+ (void)joinGroup:(NPGGroup *)group completionHandler:(NPGGroupCompletionHandler)handler;
-//+ (void)leaveGroup:(NPGGroup *)group completionHandler:(NPGGroupCompletionHandler)handler;
++ (void)joinGroup:(NPGGroup *)group completionHandler:(NPGGroupCompletionHandler)handler;
++ (void)leaveGroup:(NPGGroup *)group completionHandler:(NPGGroupCompletionHandler)handler;
 //+ (void)commentWithGroup:(NPGGroup *)group comment:(NSString *)comment completionHandler:(NPGGroupCompletionHandler)handler;
 
 @end

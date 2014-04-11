@@ -102,6 +102,44 @@ typedef void (^NPGAPIResponseCompletionHandler)(id json, NSHTTPURLResponse *resp
     }];
 }
 
++ (void)joinGroup:(NPGGroup *)group completionHandler:(NPGGroupCompletionHandler)handler
+{
+    NSString *path = [NSString stringWithFormat:@"groups/%@/join/%@", group.objectID, [NPGAppSession sharedAppSession].currentUser.objectID];
+
+    [self getWithPath:path completionHandler:^(id json, NSHTTPURLResponse *response, NSError *error) {
+        if (response.statusCode != 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(nil);
+            });
+            return;
+        }
+
+        NPGGroup *returnedGroup = [NPGGroupFactory groupWithJSON:json];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(returnedGroup);
+        });
+    }];
+}
+
++ (void)leaveGroup:(NPGGroup *)group completionHandler:(NPGGroupCompletionHandler)handler
+{
+    NSString *path = [NSString stringWithFormat:@"groups/%@/leave/%@", group.objectID, [NPGAppSession sharedAppSession].currentUser.objectID];
+
+    [self getWithPath:path completionHandler:^(id json, NSHTTPURLResponse *response, NSError *error) {
+        if (response.statusCode != 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(nil);
+            });
+            return;
+        }
+
+        NPGGroup *returnedGroup = [NPGGroupFactory groupWithJSON:json];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(returnedGroup);
+        });
+    }];
+}
+
 #pragma mark - Private Methods
 
 + (void)postWithPath:(NSString *)path dictionary:(NSDictionary *)dictionary completionHandler:(NPGAPIResponseCompletionHandler)handler
