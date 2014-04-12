@@ -12,6 +12,7 @@
 
 + (NPGUser *)userWithName:(NSString *)name;
 + (NPGUser *)userWithJSON:(NSDictionary *)json;
++ (NSArray *)usersWithJSON:(NSArray *)json;
 + (NPGUser *)userWithDictionary:(NSDictionary *)dict;
 
 + (NSDictionary *)dictionayWithUser:(NPGUser *)user;

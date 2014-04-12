@@ -88,9 +88,9 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 
 - (void)updateAnnotationWithGroup:(NPGGroup *)group
 {
-    NSArray *filtered = [self.mapView.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"class == %@ AND objectID == %@", [NPGGroup class], group.objectID]];
+    NSArray *filtered = [self.mapView.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(className == 'NPGGroup') AND (objectID == %@)", group.objectID]];
     NPGGroup *oldGroup = [filtered firstObject];
-    oldGroup = group;
+    oldGroup.people = group.people;
 }
 
 - (BOOL)registerUser

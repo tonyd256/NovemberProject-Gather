@@ -32,6 +32,17 @@
     return user;
 }
 
++ (NSArray *)usersWithJSON:(NSArray *)json
+{
+    NSMutableArray *users = [NSMutableArray arrayWithCapacity:json.count];
+
+    [json enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
+        [users addObject:[self userWithJSON:user]];
+    }];
+
+    return [users copy];
+}
+
 + (NPGUser *)userWithDictionary:(NSDictionary *)dict
 {
     NPGUser *user = [NPGUser new];

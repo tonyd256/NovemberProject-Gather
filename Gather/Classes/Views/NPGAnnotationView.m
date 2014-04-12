@@ -10,6 +10,8 @@
 #import "NPGGroup.h"
 #import "NPGGroupType.h"
 #import "NPGAppSession.h"
+#import "NPGAppSession.h"
+#import "NPGUser.h"
 
 @interface NPGAnnotationView ()
 
@@ -51,7 +53,9 @@
 {
     NPGGroup *group = (NPGGroup *)self.annotation;
 
-    if ([group isEqual:[NPGAppSession sharedAppSession].currentGroup]) {
+    NSArray *filtered = [group.people filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"objectID == %@", [NPGAppSession sharedAppSession].currentUser.objectID]];
+
+    if (filtered.count) {
         self.rightCalloutAccessoryView = self.leaveButton;
     } else {
         self.rightCalloutAccessoryView = self.joinButton;

@@ -12,6 +12,7 @@
 #import "NPGGroup.h"
 #import "NSDate+Additions.h"
 #import "NPGDateFormatterFactory.h"
+#import "NPGUserFactory.h"
 
 @implementation NPGGroupFactory
 
@@ -23,7 +24,7 @@
     group.coordinate = CLLocationCoordinate2DMake([json[@"coordinate"][0] doubleValue], [json[@"coordinate"][1] doubleValue]);
     group.time = [[NPGDateFormatterFactory ISO8601Formatter] dateFromString:json[@"time"]];
     group.type = json[@"type"];
-    group.people = json[@"people"];
+    group.people = [NPGUserFactory usersWithJSON:json[@"people"]];
 
     return group;
 }
