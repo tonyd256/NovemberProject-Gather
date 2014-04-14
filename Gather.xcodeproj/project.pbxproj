@@ -26,7 +26,6 @@
 		EAAF763418E89676007D0229 /* UIView+NibLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763318E89676007D0229 /* UIView+NibLoading.m */; };
 		EAAF763A18E8CB57007D0229 /* NPGEditGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763918E8CB57007D0229 /* NPGEditGroupViewController.m */; };
 		EAAF763D18E8DF02007D0229 /* NPGGroupFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF763C18E8DF02007D0229 /* NPGGroupFactory.m */; };
-		EAB4BD5F18E9EFD000F39288 /* NPGMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4BD5E18E9EFD000F39288 /* NPGMapViewDelegate.m */; };
 		EAB4BD6218EA0DE800F39288 /* NPGGroupType.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4BD6118EA0DE800F39288 /* NPGGroupType.m */; };
 		EAB4BD6518F46DD100F39288 /* NPGAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB4BD6418F46DD100F39288 /* NPGAPIClient.m */; };
 /* End PBXBuildFile section */
@@ -83,8 +82,6 @@
 		EAAF763918E8CB57007D0229 /* NPGEditGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGEditGroupViewController.m; sourceTree = "<group>"; };
 		EAAF763B18E8DF02007D0229 /* NPGGroupFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGGroupFactory.h; sourceTree = "<group>"; };
 		EAAF763C18E8DF02007D0229 /* NPGGroupFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGGroupFactory.m; sourceTree = "<group>"; };
-		EAB4BD5D18E9EFD000F39288 /* NPGMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGMapViewDelegate.h; sourceTree = "<group>"; };
-		EAB4BD5E18E9EFD000F39288 /* NPGMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGMapViewDelegate.m; sourceTree = "<group>"; };
 		EAB4BD6018EA0DE800F39288 /* NPGGroupType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGGroupType.h; sourceTree = "<group>"; };
 		EAB4BD6118EA0DE800F39288 /* NPGGroupType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGGroupType.m; sourceTree = "<group>"; };
 		EAB4BD6318F46DD100F39288 /* NPGAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGAPIClient.h; sourceTree = "<group>"; };
@@ -220,8 +217,6 @@
 			children = (
 				BA2B73BE4077437A83522F1E /* NPGAppDelegate.h */,
 				0CAEEC06D34145D3BFB0D703 /* NPGAppDelegate.m */,
-				EAB4BD5D18E9EFD000F39288 /* NPGMapViewDelegate.h */,
-				EAB4BD5E18E9EFD000F39288 /* NPGMapViewDelegate.m */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -449,7 +444,6 @@
 				EAAF762018E52442007D0229 /* NPGUserFactory.m in Sources */,
 				EA28B06618E90E2F006C7066 /* NSDate+Additions.m in Sources */,
 				7B70F0E89929472B99CD2239 /* main.m in Sources */,
-				EAB4BD5F18E9EFD000F39288 /* NPGMapViewDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

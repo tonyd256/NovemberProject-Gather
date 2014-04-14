@@ -78,6 +78,10 @@
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(lat, lng);
 
     [NPGAPIClient createGroupWithType:self.selectedType time:time coordinate:coordinate completionHandler:^(NPGGroup *group) {
+        if (!group) {
+            return [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There was an error creating your group." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+
         [self.delegate editGroupViewControllerDidSaveGroup:group];
     }];
 }

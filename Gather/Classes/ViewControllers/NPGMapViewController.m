@@ -14,48 +14,24 @@
 #import "NPGGroup.h"
 #import "NPGRegisterViewController.h"
 #import "NPGEditGroupViewController.h"
-#import "NPGGroupFactory.h"
-#import "NPGMapViewDelegate.h"
 #import "NPGAPIClient.h"
+#import "NPGAnnotationView.h"
 
 static NSString *const NPGEditGroupActionKey = @"NPGEditGroupActionKey";
 static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
+static NSString *const NPGAnnotationViewReuseIdentifier = @"NPGAnnotationView";
 
-@interface NPGMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate, UIAlertViewDelegate>
+@interface NPGMapViewController () <MKMapViewDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIButton *commentsButton;
+@property (weak, nonatomic) IBOutlet UIButton *groupButton;
 
-@property (nonatomic) NSArray *groups;
-@property (nonatomic) CLLocationManager *manager;
-@property (nonatomic) NPGMapViewDelegate *mapViewDelegate;
 @property (nonatomic) NSString *savedAction;
 
 @end
 
 @implementation NPGMapViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    self.groups = [NSArray new];
-    self.mapViewDelegate = [NPGMapViewDelegate new];
-    self.mapView.delegate = self.mapViewDelegate;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(annotationCalloutAccessoryTapped) name:NPGAnnotationCalloutAccessoryTappedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapViewRegionDidChange) name:NPGMapViewRegionDidChange object:nil];
-
-    self.manager = [CLLocationManager new];
-    self.manager.delegate = self;
-    self.manager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.manager.distanceFilter = 10;
-    [self.manager startUpdatingLocation];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 #pragma mark - Private Methods
 
@@ -63,7 +39,6 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 {
     [NPGAPIClient fetchGroupsWithCoordinate:self.mapView.centerCoordinate range:self.mapView.region.span.longitudeDelta completionHandler:^(NSArray *groups) {
         [self syncAnnotations:groups additiveOnly:NO];
-        self.groups = groups;
     }];
 }
 
@@ -111,9 +86,80 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
     }];
 }
 
-#pragma mark - NPGMapViewDelegate Notification Methods
+- (void)showMenu
+{
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        CGRect frame = self.commentsButton.frame;
+        frame.origin.x = 240;
+        self.commentsButton.frame = frame;
+    } completion:nil];
 
-- (void)annotationCalloutAccessoryTapped
+    [UIView animateWithDuration:0.7 delay:0.07 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        CGRect frame = self.groupButton.frame;
+        frame.origin.x = 280;
+        self.groupButton.frame = frame;
+    } completion:nil];
+}
+
+- (void)hideMenu
+{
+    [UIView animateWithDuration:0.7 delay:0.07 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        CGRect frame = self.commentsButton.frame;
+        frame.origin.x = 400;
+        self.commentsButton.frame = frame;
+    } completion:nil];
+
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        CGRect frame = self.groupButton.frame;
+        frame.origin.x = 440;
+        self.groupButton.frame = frame;
+    } completion:nil];
+}
+
+#pragma mark - MKMapViewDelegate Notification Methods
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        self.mapView.region = MKCoordinateRegionMake(userLocation.coordinate, MKCoordinateSpanMake(0.02, 0.02));
+        [self loadAnnotations];
+    });
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+
+    NPGAnnotationView *view = (NPGAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:NPGAnnotationViewReuseIdentifier];
+
+    if (!view) {
+        view = [[NPGAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:NPGAnnotationViewReuseIdentifier];
+    } else {
+        [view configureWithAnnotation:annotation];
+    }
+
+    return view;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view.annotation isKindOfClass:[MKUserLocation class]]) {
+        return;
+    }
+
+    [mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
+    [self showMenu];
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+    [self hideMenu];
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     if (![[NPGAppSession sharedAppSession] isRegistered]) {
         [self performSegueWithIdentifier:@"NPGRegisterSegue" sender:self];
@@ -141,29 +187,8 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
     }
 }
 
-- (void)mapViewRegionDidChange
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    [self loadAnnotations];
-}
-
-#pragma mark - CLLocationManagerDelegate Methods
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    CLLocation *location = [locations lastObject];
-    NSDate *date = location.timestamp;
-    NSTimeInterval interval = [date timeIntervalSinceNow];
-
-    if (abs(interval) < 15.0) {
-        self.mapView.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.02, 0.02));
-    }
-
-    if (location.horizontalAccuracy < 0 || location.horizontalAccuracy > 100) return;
-
-    [self.manager stopUpdatingLocation];
-    self.manager.delegate = nil;
-    self.manager = nil;
-
     [self loadAnnotations];
 }
 
@@ -192,11 +217,6 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 - (void)editGroupViewControllerDidSaveGroup:(NPGGroup *)group
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-
-    if (!group) {
-        [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There was an error creating your group." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-
     [NPGAppSession sharedAppSession].currentGroup = group;
     [self loadAnnotations];
 }
@@ -223,6 +243,16 @@ static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 
     self.savedAction = NPGEditGroupActionKey;
     [self performSegueWithIdentifier:@"NPGRegisterSegue" sender:self];
+}
+
+- (IBAction)openGroupUsers
+{
+    // toggle users
+}
+
+- (IBAction)openComments
+{
+    // toggle comments
 }
 
 #pragma mark - Transition Methods
