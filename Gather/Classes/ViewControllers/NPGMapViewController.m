@@ -16,22 +16,31 @@
 #import "NPGEditGroupViewController.h"
 #import "NPGAPIClient.h"
 #import "NPGAnnotationView.h"
+#import "NPGMapActionsAnimator.h"
 
 static NSString *const NPGEditGroupActionKey = @"NPGEditGroupActionKey";
 static NSString *const NPGJoinGroupActionKey = @"NPGJoinGroupActionKey";
 static NSString *const NPGAnnotationViewReuseIdentifier = @"NPGAnnotationView";
 
-@interface NPGMapViewController () <MKMapViewDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate, UIAlertViewDelegate>
+@interface NPGMapViewController () <MKMapViewDelegate, NPGRegisterViewControllerDelegate, NPGEditGroupViewControllerDelegate, UIAlertViewDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIButton *commentsButton;
 @property (weak, nonatomic) IBOutlet UIButton *groupButton;
 
 @property (nonatomic) NSString *savedAction;
+@property (nonatomic) NPGMapActionsAnimator *animator;
 
 @end
 
 @implementation NPGMapViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.navigationController.delegate = self;
+}
 
 #pragma mark - Private Methods
 
@@ -114,6 +123,16 @@ static NSString *const NPGAnnotationViewReuseIdentifier = @"NPGAnnotationView";
         frame.origin.x = 440;
         self.groupButton.frame = frame;
     } completion:nil];
+}
+
+#pragma mark - Properties
+
+- (NPGMapActionsAnimator *)animator
+{
+    if (_animator) return _animator;
+
+    _animator = [NPGMapActionsAnimator new];
+    return _animator;
 }
 
 #pragma mark - MKMapViewDelegate Notification Methods
@@ -233,6 +252,16 @@ static NSString *const NPGAnnotationViewReuseIdentifier = @"NPGAnnotationView";
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
 }
 
+#pragma mark - UINavigationControllerDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
+{
+    if (operation == UINavigationControllerOperationPush) {
+        return self.animator;
+    }
+    return nil;
+}
+
 #pragma mark - Action Methods
 
 - (IBAction)createGroup
@@ -248,6 +277,7 @@ static NSString *const NPGAnnotationViewReuseIdentifier = @"NPGAnnotationView";
 - (IBAction)openGroupUsers
 {
     // toggle users
+    [self performSegueWithIdentifier:@"NPGUserListSegue" sender:self];
 }
 
 - (IBAction)openComments

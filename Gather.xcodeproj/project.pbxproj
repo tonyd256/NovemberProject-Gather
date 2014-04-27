@@ -12,6 +12,7 @@
 		7B70F0E89929472B99CD2239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8DBE78A5A46AEB973B7AC /* main.m */; };
 		EA28B06318E8FDB8006C7066 /* NPGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28B06218E8FDB7006C7066 /* NPGButton.m */; };
 		EA28B06618E90E2F006C7066 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EA28B06518E90E2F006C7066 /* NSDate+Additions.m */; };
+		EA4FF4F5190762C0002A06A6 /* NPGMapActionsAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4FF4F4190762C0002A06A6 /* NPGMapActionsAnimator.m */; };
 		EAA5389A18CE86A400DE5F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAA5389918CE86A400DE5F6D /* Main.storyboard */; };
 		EAAF75FB18CEA279007D0229 /* NPGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */; };
 		EAAF760218CEA4CB007D0229 /* NPGAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAF760118CEA4CB007D0229 /* NPGAnnotationView.m */; };
@@ -55,6 +56,8 @@
 		EA28B06218E8FDB7006C7066 /* NPGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGButton.m; sourceTree = "<group>"; };
 		EA28B06418E90E2F006C7066 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		EA28B06518E90E2F006C7066 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
+		EA4FF4F3190762C0002A06A6 /* NPGMapActionsAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGMapActionsAnimator.h; sourceTree = "<group>"; };
+		EA4FF4F4190762C0002A06A6 /* NPGMapActionsAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGMapActionsAnimator.m; sourceTree = "<group>"; };
 		EAA5389918CE86A400DE5F6D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EAAF75F918CEA279007D0229 /* NPGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPGMapViewController.h; sourceTree = "<group>"; };
 		EAAF75FA18CEA279007D0229 /* NPGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPGMapViewController.m; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				EAB4BD6118EA0DE800F39288 /* NPGGroupType.m */,
 				EAB4BD6318F46DD100F39288 /* NPGAPIClient.h */,
 				EAB4BD6418F46DD100F39288 /* NPGAPIClient.m */,
+				EA4FF4F3190762C0002A06A6 /* NPGMapActionsAnimator.h */,
+				EA4FF4F4190762C0002A06A6 /* NPGMapActionsAnimator.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				EA28B06318E8FDB8006C7066 /* NPGButton.m in Sources */,
 				EAB4BD6518F46DD100F39288 /* NPGAPIClient.m in Sources */,
 				EAAF763418E89676007D0229 /* UIView+NibLoading.m in Sources */,
+				EA4FF4F5190762C0002A06A6 /* NPGMapActionsAnimator.m in Sources */,
 				EAAF763D18E8DF02007D0229 /* NPGGroupFactory.m in Sources */,
 				EAAF762618E68AE9007D0229 /* NPGGroup.m in Sources */,
 				EAAF763118E7AA41007D0229 /* NPGDateFormatterFactory.m in Sources */,
